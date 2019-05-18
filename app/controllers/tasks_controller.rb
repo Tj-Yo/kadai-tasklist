@@ -22,7 +22,7 @@ class TasksController < ApplicationController
             flash[:success] = "Taskが正常に入力されました"
             redirect_to @task
         else
-            @task = current_user.tasks.order(id: :desc).page(params[:page])
+           
             flash.now[:danger] = "Taskが入力されませんでした"
             render :new
         end
