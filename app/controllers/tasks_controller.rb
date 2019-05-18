@@ -7,13 +7,19 @@ class TasksController < ApplicationController
     def index
       if logged_in?
         @tasks = current_user.tasks.order(id: :desc)
+       
+        
       end
   end
     def show
-        
+    @task = current_user.tasks.find_by(id: params[:id])
+    unless @task
+      redirect_to root_url
+    end
     end
     
     def new
+        
         @task = Task.new
     end
     
@@ -24,7 +30,7 @@ class TasksController < ApplicationController
             flash[:success] = "Taskが正常に入力されました"
             redirect_to @task
         else
-           
+           　
             flash.now[:danger] = "Taskが入力されませんでした"
             render :new
         end
@@ -35,8 +41,7 @@ class TasksController < ApplicationController
     end
     
     def update
-     
-        
+        @task = current_user.tasks.build(task_params)
         if @task.update(task_params)
             flash[:success] = "Taskが正常に更新されました"
             redirect_to @task
@@ -47,7 +52,8 @@ class TasksController < ApplicationController
     end
     
     def destroy
-      @task = Task.find(params[:id])
+       
+      #@task = Task.find(params[:id])
       @task.destroy
       flash[:success] = "Taskは正常に削除されました"
       redirect_to tasks_url
