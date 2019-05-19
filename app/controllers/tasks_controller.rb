@@ -34,7 +34,7 @@ class TasksController < ApplicationController
     end
      
     def update
-        @task = current_user.tasks.build(task_params)
+        @task = Task.find(params[:id])
         if @task.update(task_params)
             flash[:success] = "Taskが正常に更新されました"
             redirect_to @task
@@ -46,7 +46,7 @@ class TasksController < ApplicationController
     
     def destroy
        
-      #@task = Task.find(params[:id])
+      @task = Task.find(params[:id])
       @task.destroy
       flash[:success] = "Taskは正常に削除されました"
       redirect_to tasks_url
