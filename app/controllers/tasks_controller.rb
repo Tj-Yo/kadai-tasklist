@@ -14,7 +14,7 @@ class TasksController < ApplicationController
     def show
     @task = current_user.tasks.find_by(id: params[:id])
     unless @task
-      redirect_to signup_url
+      redirect_to top_path
     end
     end
     
